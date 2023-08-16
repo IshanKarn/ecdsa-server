@@ -27,6 +27,7 @@ const publicKeys = {
 }
 
 app.get("/", (req, res) => {
+  console.log("root dir");
   res.send("Express on Vercel");
 });
 
