@@ -1,4 +1,4 @@
-const { hashData, getPublicAddress, extractSignature } = require("./scripts/generator.js");
+const { hashData, getPublicAddress, extractSignature } = require("./api/generator.js");
 const { secp256k1, Signature } = require("ethereum-cryptography/secp256k1");
 const {
   utf8ToBytes,
