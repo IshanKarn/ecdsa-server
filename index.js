@@ -92,3 +92,6 @@ function setInitialBalance(address) {
     balances[address] = 0;
   }
 }
+
+// Export the Express API
+module.exports = app;
