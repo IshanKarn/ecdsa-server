@@ -1,4 +1,4 @@
-const { hashData, getPublicAddress, extractSignature } = require("./api/generator.js");
+const { keccak256 } = require("ethereum-cryptography/keccak");
 const { secp256k1, Signature } = require("ethereum-cryptography/secp256k1");
 const {
   utf8ToBytes,
@@ -96,6 +96,24 @@ function setInitialBalance(address) {
   if (!balances[address]) {
     balances[address] = 0;
   }
+}
+function extractSignature(signString) {
+  let rStartIndex = signString.indexOf("r:")+2;
+  let rEndIndex = signString.indexOf(",")-1;
+  let sStartIndex = signString.indexOf("s:")+2;
+  let sEndIndex = signString.lastIndexOf(",")-1;
+  let recoveryStartIndex = signString.indexOf("y:")+2;
+
+  const r = signString.slice(rStartIndex,rEndIndex+1);
+  const s = signString.slice(sStartIndex,sEndIndex+1);
+  const recovery = signString.slice(recoveryStartIndex,signString.length-2).trim();
+
+  const signature = new secp256k1.Signature(BigInt(r.slice(0,-1)), BigInt(s.slice(0,-1)), recovery);
+  return signature;
+}
+
+function hashData(data) {
+  return keccak256(utf8ToBytes(data));
 }
 
 // Export the Express API
