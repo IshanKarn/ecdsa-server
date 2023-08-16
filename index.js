@@ -26,6 +26,10 @@ const publicKeys = {
   "6c2055e02316c1851fafacd929846444a09204be": "022d0bb52f3e3190abeac519b536db88e231096537df07a1d00298f17270725f9c"
 }
 
+app.get("/", (req, res) => {
+  res.send("Express on Vercel");
+});
+
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
   const balance = balances[address] || 0;
